@@ -1,12 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Home from './src/pages/home';
-import DetailsScreen from './src/pages/detail';
-
 import Ionicons from '@expo/vector-icons/Ionicons';
+
+import Home from './src/pages/home';
+import Events from './src/pages/events';
+import Map from './src/pages/map';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,11 +18,11 @@ const App = () => {
           let iconName;
 
           if (route.name === 'Home') {
-            iconName = focused
-              ? 'ios-home'
-              : 'ios-home';
-          } else if (route.name === 'DetailsScreen') {
-            iconName = focused ? 'ios-list' : 'ios-list';
+            iconName = focused ? 'ios-home' : 'ios-home-outline';
+          } else if (route.name === 'Events') {
+            iconName = focused ? 'ios-list' : 'ios-list-outline';
+          } else if (route.name === 'Map') {
+            iconName = focused ? 'ios-map' : 'ios-map-outline';
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -31,7 +31,8 @@ const App = () => {
       })}
       >
         <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="DetailsScreen" component={DetailsScreen} />
+        <Tab.Screen name="Events" component={Events} />
+        <Tab.Screen name="Map" component={Map} />
       </Tab.Navigator>
     </NavigationContainer>
   )
