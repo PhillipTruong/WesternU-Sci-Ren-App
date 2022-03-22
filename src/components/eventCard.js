@@ -4,11 +4,13 @@ const EventCard = ({ item: { eventName, description, time } }) => {
 
   return (
     <View style={styles.eventCardContainer}>
-      <View>
+      <View style={styles.titleDescriptionContainer}>
         <Text style={styles.eventName}>{eventName}</Text>
         <Text>{description}</Text>
+      </View >
+      <View style={styles.timeContainer}>
+        <Text>{time}</Text>
       </View>
-      <Text>{time}</Text>
     </View>
   );
 }
@@ -19,11 +21,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10,
-    backgroundColor: '#E0E0E0',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderRadius: 5,
+    margin: 5,
   },
   eventName: {
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: "bold"
+  },
+  titleDescriptionContainer: {
+    flex: 5,
+  },
+  timeContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 
