@@ -1,4 +1,6 @@
 import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
+import * as Linking from 'expo-linking';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { faqData } from '../helpers/faqData';
 import { eventData } from '../helpers/eventData';
@@ -34,13 +36,37 @@ const Home = ({ navigation }) => {
           </View>
         </View>
 
-
         <View style={styles.section}>
           <Text style={styles.heading}>Frequently Asked Questions:</Text>
           {faqData.map((item) => (
             <Faq item={item} key={item.key} />
           ))}
         </View>
+
+        <View style={styles.section}>
+          <Text style={styles.heading}>Social Media:</Text>
+          <Text>
+
+          </Text>
+          <View style={styles.socialMediaContainer}>
+            <TouchableOpacity style={styles.socialMediaLinks}
+              onPress={() => { Linking.openURL('https://www.facebook.com/westernuSciRen/') }}
+            >
+              <Ionicons name='logo-facebook' size={32}></Ionicons>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.socialMediaLinks}
+              onPress={() => { Linking.openURL('https://twitter.com/WesternuSciRen') }}
+            >
+              <Ionicons name='logo-twitter' size={32}></Ionicons>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.socialMediaLinks}
+              onPress={() => { Linking.openURL('https://sciencerendezvous.uwo.ca/') }}
+            >
+              <Ionicons name='link-outline' size={32}></Ionicons>
+            </TouchableOpacity>
+          </View>
+        </View>
+
       </ScrollView>
     </SafeAreaView >
 
@@ -56,7 +82,6 @@ const styles = StyleSheet.create({
   scrollViewContainer: {
     flex: 1,
     paddingHorizontal: 20,
-
   },
   title: {
     fontSize: 20,
@@ -89,7 +114,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     borderRadius: 5,
     width: '50%',
+  },
+  socialMediaContainer: {
+    flexDirection: 'row',
+  },
+  socialMediaLinks: {
+    marginHorizontal: 10,
   }
-
 });
 export default Home
