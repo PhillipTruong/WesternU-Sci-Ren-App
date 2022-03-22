@@ -4,9 +4,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-import Home from './src/pages/home';
-import Events from './src/pages/events';
-import Map from './src/pages/map';
+import Home from './pages/home';
+import Events from './pages/events';
+import Map from './pages/map';
 
 const Tab = createBottomTabNavigator();
 
