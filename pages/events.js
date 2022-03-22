@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, View, FlatList, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Text, FlatList, SafeAreaView } from 'react-native';
 
 import { eventData } from '../helpers/eventData';
 
@@ -9,8 +9,12 @@ const Events = () => {
   const [events, setEvents] = useState(eventData) // TODO: delete this if we never setEvents
 
   return (
-    <SafeAreaView style={styles.container}>
-
+    <SafeAreaView style={styles.safeAreaViewContainer}>
+      <View style={styles.container}>
+        <Text style={styles.title}>
+          Events
+        </Text>
+      </View>
       <FlatList
         style={styles.flatList}
         data={events}
@@ -23,10 +27,18 @@ const Events = () => {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeAreaViewContainer: {
     flex: 1,
     paddingVertical: 40,
-    backgroundColor: '#EFFFFD'
+    backgroundColor: '#EFFFFD',
+  },
+  container: {
+    paddingHorizontal: 20,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
   flatList: {
     flex: 1,

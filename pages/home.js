@@ -31,7 +31,7 @@ const Home = ({ navigation }) => {
               style={styles.button}
               onPress={() => navigation.navigate('Events')}
             >
-              <Text>More Events</Text>
+              <Text>View More Events</Text>
             </TouchableOpacity>
           </View>
         </View>

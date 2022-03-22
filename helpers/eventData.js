@@ -5,5 +5,5 @@ export const eventData = [
   { eventName: 'Chemistry With a Bang!', description: 'Chemistry is awesome', time: '1 PM', key: 3 },
   { eventName: 'Yoga', description: 'Lets get active', time: '2 PM', key: 4 },
   { eventName: 'Fireworks', description: 'Yes, that\'s right, FIREWORKS! ', time: '3 PM', key: 5 },
-  { eventName: 'Event End', description: 'Science Rendezvous 2022 begins!', time: '3 PM', key: 6 }
+  { eventName: 'Event End', description: 'Science Rendezvous 2022 begins!', time: '3 PM', key: 6 },
 ]
