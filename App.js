@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -12,35 +12,44 @@ const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
+    <SafeAreaView style={styles.container}>
+      <StatusBar
+        barStyle={'dark-content'}
+      />
+      <NavigationContainer>
+        <Tab.Navigator screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
 
-          if (route.name === 'Home') {
-            iconName = focused ? 'ios-home' : 'ios-home-outline';
-          } else if (route.name === 'Events') {
-            iconName = focused ? 'ios-list' : 'ios-list-outline';
-          } else if (route.name === 'Map') {
-            iconName = focused ? 'ios-map' : 'ios-map-outline';
-          }
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-        headerShown: false,
-        tabBarActiveTintColor: '#0B8296',
-        tabBarInactiveTintColor: 'gray',
-        tabBarShowLabel: false,
-      })}
-      >
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Events" component={Events} />
-        <Tab.Screen name="Map" component={Map} />
-      </Tab.Navigator>
-    </NavigationContainer>
+            if (route.name === 'Home') {
+              iconName = focused ? 'ios-home' : 'ios-home-outline';
+            } else if (route.name === 'Events') {
+              iconName = focused ? 'ios-list' : 'ios-list-outline';
+            } else if (route.name === 'Map') {
+              iconName = focused ? 'ios-map' : 'ios-map-outline';
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          headerShown: false,
+          tabBarActiveTintColor: '#0B8296',
+          tabBarInactiveTintColor: 'gray',
+          tabBarShowLabel: false,
+        })}
+        >
+          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Events" component={Events} />
+          <Tab.Screen name="Map" component={Map} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#EFFFFD',
+  },
 });
 
 export default App

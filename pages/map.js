@@ -13,7 +13,6 @@ const Map = () => {
 const styles = StyleSheet.create({
   safeAreaViewContainer: {
     flex: 1,
-    paddingVertical: 40,
     backgroundColor: '#EFFFFD',
   },
   container: {
@@ -23,6 +22,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+    paddingTop: 20,
     marginBottom: 10,
   },
 });

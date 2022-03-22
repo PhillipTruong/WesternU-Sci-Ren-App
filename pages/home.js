@@ -7,7 +7,6 @@ import { eventData } from '../helpers/eventData';
 import Faq from '../components/faq';
 import EventCard from '../components/eventCard';
 
-
 const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container} >
@@ -76,17 +75,17 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 40,
-    backgroundColor: '#EFFFFD',
   },
   scrollViewContainer: {
     flex: 1,
     paddingHorizontal: 20,
+    backgroundColor: '#EFFFFD',
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
+    paddingTop: 20,
   },
   p: {
     marginBottom: 10,
