@@ -28,6 +28,7 @@ const App = () => {
         },
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray',
+        tabBarStyle: { marginBottom: 3 }
       })}
       >
         <Tab.Screen name="Home" component={Home} />
@@ -39,12 +40,6 @@ const App = () => {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 });
 
 export default App
