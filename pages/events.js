@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet, View, Text, FlatList, SafeAreaView } from 'react-native';
 
-import { eventData } from '../helpers/eventData';
+import { eventData } from '../utility/eventData';
 
 import EventCard from '../components/eventCard';
 

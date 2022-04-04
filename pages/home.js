@@ -2,8 +2,8 @@ import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } fr
 import * as Linking from 'expo-linking';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-import { faqData } from '../helpers/faqData';
-import { eventData } from '../helpers/eventData';
+import { faqData } from '../utility/faqData';
+import { eventData } from '../utility/eventData';
 import Faq from '../components/faq';
 import EventCard from '../components/eventCard';
 
