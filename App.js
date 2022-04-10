@@ -11,6 +11,8 @@ import Home from './pages/home';
 import Events from './pages/events';
 import Map from './pages/map';
 
+const axios = require('axios').default;
+
 const Tab = createBottomTabNavigator();
 
 const App = () => {
@@ -29,6 +31,15 @@ const App = () => {
         return;
       }
       const token = (await Notifications.getExpoPushTokenAsync()).data;
+
+      axios.post('https://uwo-sr-app-server.herokuapp.com/api/expotoken/', {
+        token: token
+      })
+      .then(res => console.log(res.body))
+      .catch(error => {
+        console.error(error);
+      });
+
       console.log(token);
       setExpoToken(token)
     } else {
