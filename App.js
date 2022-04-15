@@ -32,16 +32,19 @@ const App = () => {
       }
       const token = (await Notifications.getExpoPushTokenAsync()).data;
 
-      axios.post('https://uwo-sr-app-server.herokuapp.com/api/expotoken/', {
-        token: token
-      })
-      .then(res => console.log(res.body))
-      .catch(error => {
-        console.error(error);
-      });
+      if (existingStatus !== 'granted') {
+        await axios.post('https://uwo-sr-app-server.herokuapp.com/api/expotoken/', {
+          token: token
+        })
+          .then(res => console.log(res.body))
+          .catch(error => {
+            console.error(error);
+          });
 
-      console.log(token);
-      setExpoToken(token)
+        // console.log(token);
+        setExpoToken(token)
+      }
+
     } else {
       alert('Must use physical device for Push Notifications');
     }
@@ -56,7 +59,9 @@ const App = () => {
     }
   };
 
-  registerForPushNotificationsAsync()
+  useEffect(() => {
+    registerForPushNotificationsAsync()
+  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
