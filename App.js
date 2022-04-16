@@ -83,7 +83,7 @@ const App = () => {
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           headerShown: false,
-          tabBarActiveTintColor: '#0B8296',
+          tabBarActiveTintColor: '#0BB4A9',
           tabBarInactiveTintColor: 'gray',
           tabBarShowLabel: false,
         })}
