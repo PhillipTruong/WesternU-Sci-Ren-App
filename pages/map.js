@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingTop: 20,
     marginBottom: 10,
+    fontFamily: 'Roboto_700Bold',
   },
 });
 

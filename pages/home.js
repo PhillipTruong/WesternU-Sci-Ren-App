@@ -1,7 +1,14 @@
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import * as Linking from 'expo-linking';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity
+} from 'react-native';
 import { faqData } from '../utility/faqData';
 import { eventData } from '../utility/eventData';
 import Faq from '../components/faq';
@@ -30,7 +37,7 @@ const Home = ({ navigation }) => {
               style={styles.button}
               onPress={() => navigation.navigate('Events')}
             >
-              <Text>View More Events</Text>
+              <Text style={styles.buttonText}>View More Events</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -86,13 +93,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     paddingTop: 20,
+    fontFamily: 'Roboto_700Bold'
   },
   p: {
+    fontFamily: 'Roboto_400Regular',
     marginBottom: 10,
   },
   heading: {
     fontSize: 15,
     fontWeight: 'bold',
+    fontFamily: 'Roboto_700Bold',
     marginBottom: 10,
   },
   titleContainer: {
@@ -113,6 +123,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     borderRadius: 5,
     width: '50%',
+  },
+  buttonText: {
+    fontFamily: 'Roboto_700Bold',
   },
   socialMediaContainer: {
     flexDirection: 'row',

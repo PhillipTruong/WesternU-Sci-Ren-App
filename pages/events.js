@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { StyleSheet, View, Text, FlatList, SafeAreaView } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  SafeAreaView
+} from 'react-native';
 
 import { eventData } from '../utility/eventData';
 
@@ -39,6 +45,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingTop: 20,
     marginBottom: 10,
+    fontFamily: 'Roboto_700Bold',
   },
   flatList: {
     flex: 1,

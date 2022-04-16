@@ -6,10 +6,10 @@ const EventCard = ({ item: { eventName, description, time } }) => {
     <View style={styles.eventCardContainer}>
       <View style={styles.titleDescriptionContainer}>
         <Text style={styles.eventName}>{eventName}</Text>
-        <Text>{description}</Text>
+        <Text style={styles.eventText}>{description}</Text>
       </View >
       <View style={styles.timeContainer}>
-        <Text>{time}</Text>
+        <Text style={styles.eventText}>{time}</Text>
       </View>
     </View>
   );
@@ -28,7 +28,11 @@ const styles = StyleSheet.create({
   },
   eventName: {
     fontSize: 15,
-    fontWeight: "bold"
+    fontFamily: 'Roboto_700Bold',
+  },
+  eventText: {
+    fontFamily: 'Roboto_400Regular',
+
   },
   titleDescriptionContainer: {
     flex: 5,
