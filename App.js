@@ -1,77 +1,31 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import * as Notifications from 'expo-notifications'
-import * as Device from 'expo-device';
 import AppLoading from 'expo-app-loading';
-
 import Ionicons from '@expo/vector-icons/Ionicons';
-
 import {
   useFonts,
   Roboto_400Regular,
   Roboto_700Bold
 } from '@expo-google-fonts/roboto';
 
+import { registerForPushNotifications } from './utility/pushNotificationService'
+
 import Home from './pages/home';
 import Events from './pages/events';
 import Map from './pages/map';
 
-const axios = require('axios').default;
-
 const Tab = createBottomTabNavigator();
 
 const App = () => {
-  const [expoToken, setExpoToken] = useState('')
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_700Bold
-  });
-
-  registerForPushNotificationsAsync = async () => {
-    if (Device.isDevice) {
-      const { status: existingStatus } = await Notifications.getPermissionsAsync();
-      let finalStatus = existingStatus;
-      if (existingStatus !== 'granted') {
-        const { status } = await Notifications.requestPermissionsAsync();
-        finalStatus = status;
-      }
-      if (finalStatus !== 'granted') {
-        alert('Failed to get push token for push notification!');
-        return;
-      }
-      const token = (await Notifications.getExpoPushTokenAsync()).data;
-
-      if (existingStatus !== 'granted') {
-        await axios.post('https://uwo-sr-app-server.herokuapp.com/api/expotoken/', {
-          token: token
-        })
-          .then(res => console.log(res.body))
-          .catch(error => {
-            console.error(error);
-          });
-
-        // console.log(token);
-        setExpoToken(token)
-      }
-
-    } else {
-      alert('Must use physical device for Push Notifications');
-    }
-
-    if (Platform.OS === 'android') {
-      Notifications.setNotificationChannelAsync('default', {
-        name: 'default',
-        importance: Notifications.AndroidImportance.MAX,
-        vibrationPattern: [0, 250, 250, 250],
-        lightColor: '#FF231F7C',
-      });
-    }
-  };
+  })
 
   useEffect(() => {
-    registerForPushNotificationsAsync()
+    registerForPushNotifications()
   }, [])
 
   if (!fontsLoaded) {
