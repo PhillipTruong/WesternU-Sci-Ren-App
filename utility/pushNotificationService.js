@@ -11,12 +11,16 @@ export const registerForPushNotifications = async () => {
       finalStatus = status;
     }
     if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
+      if (Platform.OS !== 'android') {
+        alert('Failed to get push token for push notification! Please enable push notifications in your device settings.');
+      } else {
+        alert('Failed to get push token for push notification!');
+      }
       return;
     }
-    const token = (await Notifications.getExpoPushTokenAsync()).data;
 
-    if (existingStatus !== 'granted') {
+    const token = (await Notifications.getExpoPushTokenAsync()).data;
+    if (token) {
       await axios.post('https://uwo-sr-app-server.herokuapp.com/api/expotoken/', {
         token: token
       })

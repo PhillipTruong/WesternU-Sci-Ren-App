@@ -18,17 +18,17 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "85799fd0-0a62-4093-ae54-1ab282c3cf75",
-      "buildNumber": "1.0.0"
+      "bundleIdentifier": "app.westernuscirenapp",
+      "buildNumber": "1.0.2"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#00BDC5"
       },
-      "package": "westernu.sciren.app",
+      "package": "app.westernuscirenapp",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 2,
+      "versionCode": 6,
       "permissions": [
         "RECEIVE_BOOT_COMPLETED"
       ]
