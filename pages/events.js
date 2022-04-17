@@ -20,6 +20,9 @@ const Events = () => {
         <Text style={styles.title}>
           Events
         </Text>
+        <Text style={styles.text}>
+          *Events listed are for May 7th, 2022
+        </Text>
       </View>
       <FlatList
         style={styles.flatList}
@@ -46,6 +49,9 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     marginBottom: 10,
     fontFamily: 'Roboto_700Bold',
+  },
+  text: {
+    fontFamily: 'Roboto_400Regular',
   },
   flatList: {
     flex: 1,

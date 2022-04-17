@@ -5,6 +5,7 @@ const Map = () => {
     <SafeAreaView style={styles.safeAreaViewContainer}>
       <View style={styles.container}>
         <Text style={styles.title}>Map Screen</Text>
+        <Text style={styles.text}>Coming soon!</Text>
       </View>
     </SafeAreaView>
   );
@@ -25,6 +26,9 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     marginBottom: 10,
     fontFamily: 'Roboto_700Bold',
+  },
+  text: {
+    fontFamily: 'Roboto_400Regular',
   },
 });
 
