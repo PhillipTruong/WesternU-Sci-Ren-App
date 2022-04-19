@@ -26,6 +26,7 @@ const Home = ({ navigation }) => {
           Experience the joy of discovery with hands-on activities, and complete the Science Chase for prizes!
         </Text>
 
+        {/* what is happening now: */}
         {/* <View style={styles.section}>
           <Text style={styles.heading}>What's Happening Now:</Text>
           {eventData.slice(0, 3).map((item => (
