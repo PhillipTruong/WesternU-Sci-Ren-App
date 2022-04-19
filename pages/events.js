@@ -12,6 +12,7 @@ import EventCard from '../components/eventCard';
 
 const Events = () => {
   const [events, setEvents] = useState([])
+  let past = new Date() < new Date('may 7, 2022')
 
   useEffect(async () => {
     await axios.get('https://uwo-sr-app-server.herokuapp.com/api/data/getAllEvents')
@@ -30,9 +31,11 @@ const Events = () => {
         <Text style={styles.title}>
           Events
         </Text>
-        <Text style={styles.text}>
-          *Events listed are for May 7th, 2022
-        </Text>
+        {past && (
+          <Text style={styles.text}>
+            *Events listed are for May 7th, 2022
+          </Text>
+        )}
       </View>
       <FlatList
         style={styles.flatList}
