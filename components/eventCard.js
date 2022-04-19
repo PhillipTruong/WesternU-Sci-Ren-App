@@ -5,7 +5,7 @@ const EventCard = ({ item: { _id: id, title, description, time } }) => {
   let past = today > new Date(time)
   let eventTime = ''
   if (time) {
-    eventTime = (new Date(time)).toLocaleString('en-US', { timeZone: 'America/New_York' })
+    eventTime = (new Date(time)).toLocaleString('en-US', { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit' })
   }
 
   return (
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   eventPast: {
-    backgroundColor: 'grey',
+    backgroundColor: '#EEEEEE',
   },
   eventNotPast: {
     backgroundColor: '#FFFFFF',
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 
   },
   titleDescriptionContainer: {
-    flex: 5,
+    flex: 4,
   },
   timeContainer: {
     flex: 1,
