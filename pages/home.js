@@ -10,9 +10,9 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { faqData } from '../utility/faqData';
-import { eventData } from '../utility/eventData';
+// import { eventData } from '../utility/eventData';
 import Faq from '../components/faq';
-import EventCard from '../components/eventCard';
+// import EventCard from '../components/eventCard';
 
 const Home = ({ navigation }) => {
   return (
@@ -26,7 +26,7 @@ const Home = ({ navigation }) => {
           Experience the joy of discovery with hands-on activities, and complete the Science Chase for prizes!
         </Text>
 
-        <View style={styles.section}>
+        {/* <View style={styles.section}>
           <Text style={styles.heading}>What's Happening Now:</Text>
           {eventData.slice(0, 3).map((item => (
             <EventCard item={item} key={item.key} />
@@ -40,7 +40,7 @@ const Home = ({ navigation }) => {
               <Text style={styles.buttonText}>View More Events</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </View> */}
 
         <View style={styles.section}>
           <Text style={styles.heading}>Frequently Asked Questions:</Text>

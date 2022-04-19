@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -6,13 +6,23 @@ import {
   FlatList,
   SafeAreaView
 } from 'react-native';
-
-import { eventData } from '../utility/eventData';
+const axios = require('axios').default;
 
 import EventCard from '../components/eventCard';
 
 const Events = () => {
-  const [events, setEvents] = useState(eventData) // TODO: delete this if we never setEvents
+  const [events, setEvents] = useState([])
+
+  useEffect(async () => {
+    await axios.get('https://uwo-sr-app-server.herokuapp.com/api/data/getAllEvents')
+      .then(res => {
+        const eventData = res.data
+        setEvents(eventData)
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, [])
 
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
@@ -30,6 +40,7 @@ const Events = () => {
         renderItem={({ item }) => (
           <EventCard item={item} />
         )}
+        keyExtractor={(item) => item._id.toString()}
       />
     </SafeAreaView>
   );
@@ -52,6 +63,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'Roboto_400Regular',
+    paddingBottom: 5,
   },
   flatList: {
     flex: 1,

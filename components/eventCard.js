@@ -1,15 +1,21 @@
 import { StyleSheet, View, Text } from 'react-native';
 
-const EventCard = ({ item: { eventName, description, time } }) => {
+const EventCard = ({ item: { _id: id, title, description, time } }) => {
+  let today = new Date()
+  let past = today > new Date(time)
+  let eventTime = ''
+  if (time) {
+    eventTime = (new Date(time)).toLocaleString('en-US', { timeZone: 'America/New_York' })
+  }
 
   return (
-    <View style={styles.eventCardContainer}>
+    <View key={id} style={[styles.eventCardContainer, past ? styles.eventPast : styles.eventNotPast]}>
       <View style={styles.titleDescriptionContainer}>
-        <Text style={styles.eventName}>{eventName}</Text>
+        <Text style={styles.eventName}>{title}</Text>
         <Text style={styles.eventText}>{description}</Text>
       </View >
       <View style={styles.timeContainer}>
-        <Text style={styles.eventText}>{time}</Text>
+        <Text style={styles.eventText}>{eventTime}</Text>
       </View>
     </View>
   );
@@ -21,10 +27,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10,
-    backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderRadius: 5,
     margin: 5,
+  },
+  eventPast: {
+    backgroundColor: 'grey',
+  },
+  eventNotPast: {
+    backgroundColor: '#FFFFFF',
   },
   eventName: {
     fontSize: 15,
