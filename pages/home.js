@@ -61,15 +61,23 @@ const Home = ({ navigation }) => {
             >
               <Ionicons name='logo-facebook' size={32}></Ionicons>
             </TouchableOpacity>
+
             <TouchableOpacity style={styles.socialMediaLinks}
               onPress={() => { Linking.openURL('https://twitter.com/WesternuSciRen') }}
             >
               <Ionicons name='logo-twitter' size={32}></Ionicons>
             </TouchableOpacity>
+
             <TouchableOpacity style={styles.socialMediaLinks}
               onPress={() => { Linking.openURL('https://sciencerendezvous.uwo.ca/') }}
             >
               <Ionicons name='link-outline' size={32}></Ionicons>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.socialMediaLinks}
+              onPress={() => { Linking.openURL('https://srwesternu.expofp.com/') }}
+            >
+              <Ionicons name='map-outline' size={32}></Ionicons>
             </TouchableOpacity>
           </View>
         </View>
