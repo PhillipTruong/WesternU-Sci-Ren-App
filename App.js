@@ -15,6 +15,7 @@ import { registerForPushNotifications } from './utility/pushNotificationService'
 import Home from './pages/home';
 import Events from './pages/events';
 import Map from './pages/map';
+import Faq from './pages/faq';
 
 const Tab = createBottomTabNavigator();
 
@@ -48,6 +49,9 @@ const App = () => {
               } else if (route.name === 'Map') {
                 iconName = focused ? 'ios-map' : 'ios-map-outline';
               }
+              else if (route.name === 'Faq') {
+                iconName = focused ? 'help' : 'help-outline';
+              }
               return <Ionicons name={iconName} size={size} color={color} />;
             },
             headerShown: false,
@@ -58,7 +62,8 @@ const App = () => {
           >
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Events" component={Events} />
-            <Tab.Screen name="Map" component={Map} />
+            {/* <Tab.Screen name="Map" component={Map} /> */}
+            <Tab.Screen name="Faq" component={Faq} />
           </Tab.Navigator>
         </NavigationContainer>
       </SafeAreaView>

@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text } from 'react-native';
 
-const Faq = ({ item: { question, answer } }) => {
+const FaqCard = ({ item: { question, answer } }) => {
 
   return (
     <View style={styles.faqContainer}>
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Faq
+export default FaqCard

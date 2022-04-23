@@ -9,10 +9,6 @@ import {
   ScrollView,
   TouchableOpacity
 } from 'react-native';
-import { faqData } from '../utility/faqData';
-// import { eventData } from '../utility/eventData';
-import Faq from '../components/faq';
-// import EventCard from '../components/eventCard';
 
 const Home = ({ navigation }) => {
   return (
@@ -42,13 +38,6 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View> */}
-
-        <View style={styles.section}>
-          <Text style={styles.heading}>Frequently Asked Questions:</Text>
-          {faqData.map((item) => (
-            <Faq item={item} key={item.key} />
-          ))}
-        </View>
 
         <View style={styles.section}>
           <Text style={styles.heading}>Social Media:</Text>
