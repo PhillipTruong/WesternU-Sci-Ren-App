@@ -7,23 +7,37 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  Image,
+  ImageBackground
 } from 'react-native';
+
+import { homePageDrMaddox } from '../images/images';
+import { bgImage } from '../images/images';
 
 const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container} >
 
-      <ScrollView style={styles.scrollViewContainer}>
+      <View style={styles.view}>
+        <ImageBackground source={bgImage} resizeMode="cover" style={styles.bgImage}>
 
-        <Text style={styles.title}>Welcome to Science Rendezvous @Western 2022!</Text>
-        <Text style={styles.p}>
-          Science Rendezvous is an all-ages, fun-filled, and free-of-cost event where you and your family can engage in S.T.E.A.M. activities led by Western University's budding scientists.
-          Experience the joy of discovery with hands-on activities, and complete the Science Chase for prizes!
-        </Text>
 
-        {/* what is happening now: */}
-        {/* <View style={styles.section}>
+          <Text style={styles.title}>Welcome to Science Rendezvous @Western 2022!</Text>
+          <Text style={styles.p}>
+            Science Rendezvous is an all-ages, fun-filled, and free-of-cost event where you and your family can engage in S.T.E.A.M. activities led by Western University's budding scientists.
+            Experience the joy of discovery with hands-on activities, and complete the Science Chase for prizes!
+          </Text>
+
+          <View style={styles.imageView}>
+            {/* <Text>image</Text> */}
+            {/* <Image source={homePageDrMaddox} resizeMode='cover' style={styles.drMaddoxImg} /> */}
+          </View>
+
+
+
+          {/* what is happening now: */}
+          {/* <View style={styles.section}>
           <Text style={styles.heading}>What's Happening Now:</Text>
           {eventData.slice(0, 3).map((item => (
             <EventCard item={item} key={item.key} />
@@ -39,39 +53,40 @@ const Home = ({ navigation }) => {
           </View>
         </View> */}
 
-        <View style={styles.section}>
-          <Text style={styles.heading}>Social Media:</Text>
-          <Text>
+          <View style={styles.section}>
+            <Text style={styles.heading}>Social Media:</Text>
+            <Text>
 
-          </Text>
-          <View style={styles.socialMediaContainer}>
-            <TouchableOpacity style={styles.socialMediaLinks}
-              onPress={() => { Linking.openURL('https://www.facebook.com/westernuSciRen/') }}
-            >
-              <Ionicons name='logo-facebook' size={32}></Ionicons>
-            </TouchableOpacity>
+            </Text>
+            <View style={styles.socialMediaContainer}>
+              <TouchableOpacity style={styles.socialMediaLinks}
+                onPress={() => { Linking.openURL('https://www.facebook.com/westernuSciRen/') }}
+              >
+                <Ionicons name='logo-facebook' size={32}></Ionicons>
+              </TouchableOpacity>
 
-            <TouchableOpacity style={styles.socialMediaLinks}
-              onPress={() => { Linking.openURL('https://twitter.com/WesternuSciRen') }}
-            >
-              <Ionicons name='logo-twitter' size={32}></Ionicons>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.socialMediaLinks}
+                onPress={() => { Linking.openURL('https://twitter.com/WesternuSciRen') }}
+              >
+                <Ionicons name='logo-twitter' size={32}></Ionicons>
+              </TouchableOpacity>
 
-            <TouchableOpacity style={styles.socialMediaLinks}
-              onPress={() => { Linking.openURL('https://sciencerendezvous.uwo.ca/') }}
-            >
-              <Ionicons name='link-outline' size={32}></Ionicons>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.socialMediaLinks}
+                onPress={() => { Linking.openURL('https://sciencerendezvous.uwo.ca/') }}
+              >
+                <Ionicons name='link-outline' size={32}></Ionicons>
+              </TouchableOpacity>
 
-            <TouchableOpacity style={styles.socialMediaLinks}
-              onPress={() => { Linking.openURL('https://srwesternu.expofp.com/') }}
-            >
-              <Ionicons name='map-outline' size={32}></Ionicons>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.socialMediaLinks}
+                onPress={() => { Linking.openURL('https://srwesternu.expofp.com/') }}
+              >
+                <Ionicons name='map-outline' size={32}></Ionicons>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
 
-      </ScrollView>
+        </ImageBackground>
+      </View>
     </SafeAreaView >
 
   )
@@ -81,9 +96,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  scrollViewContainer: {
+  view: {
     flex: 1,
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     backgroundColor: '#EFFFFD',
   },
   title: {
@@ -130,6 +145,23 @@ const styles = StyleSheet.create({
   },
   socialMediaLinks: {
     marginHorizontal: 10,
+  },
+  imageView: {
+    flex: 10,
+    // backgroundColor: 'orange'
+    borderWidth: 1,
+    // borderColor: 'red',
+    // alignItems: 'center',
+    justifyContent: 'center',
+  },
+  drMaddoxImg: {
+    // flex: 1,
+    width: 'auto',
+    height: '50%'
+  },
+  bgImage: {
+    flex: 1,
+    justifyContent: 'center'
   }
 });
 export default Home

@@ -1,22 +1,47 @@
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { useState, useEffect } from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  SafeAreaView,
+  ImageBackground,
+} from 'react-native';
+const axios = require('axios').default;
 
-import { faqData } from '../utility/faqData';
 import FaqCard from '../components/faqCard';
+import { bgImage } from '../images/images';
 
 
 const Faq = () => {
+  const [faq, setFaq] = useState([])
+
+  useEffect(async () => {
+    await axios.get('https://uwo-sr-app-server.herokuapp.com/api/faq/getAllFaq')
+      .then(res => {
+        const faqData = res.data
+        setFaq(faqData)
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, [])
+
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
-      <View style={styles.container}>
-        <Text style={styles.title}>FAQ</Text>
-      </View>
-
-      {/* <View style={styles.section}>
-        <Text style={styles.heading}>Frequently Asked Questions:</Text>
-        {faqData.map((item) => (
-          <FaqCard item={item} key={item.key} />
-        ))}
-      </View> */}
+      <ImageBackground source={bgImage} resizeMode="cover" style={styles.bgImage}>
+        <View style={styles.container}>
+          <Text style={styles.title}>FAQ</Text>
+          <FlatList
+            style={styles.flatList}
+            data={faq}
+            renderItem={({ item }) => (
+              <FaqCard item={item} />
+            )}
+            keyExtractor={(item) => item._id.toString()}
+          />
+        </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 }
@@ -39,6 +64,14 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'Roboto_400Regular',
+  },
+  flatList: {
+    flex: 1,
+    paddingHorizontal: 20,
+  },
+  bgImage: {
+    flex: 1,
+    justifyContent: 'center'
   },
 });
 

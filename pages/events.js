@@ -4,11 +4,13 @@ import {
   View,
   Text,
   FlatList,
-  SafeAreaView
+  SafeAreaView,
+  ImageBackground,
 } from 'react-native';
 const axios = require('axios').default;
 
 import EventCard from '../components/eventCard';
+import { bgImage } from '../images/images';
 
 const Events = () => {
   const [events, setEvents] = useState([])
@@ -27,24 +29,26 @@ const Events = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
-      <View style={styles.container}>
-        <Text style={styles.title}>
-          Events
-        </Text>
-        {past && (
-          <Text style={styles.text}>
-            *Events listed are for May 7th, 2022
+      <ImageBackground source={bgImage} resizeMode="cover" style={styles.bgImage}>
+        <View style={styles.container}>
+          <Text style={styles.title}>
+            Events
           </Text>
-        )}
-      </View>
-      <FlatList
-        style={styles.flatList}
-        data={events}
-        renderItem={({ item }) => (
-          <EventCard item={item} />
-        )}
-        keyExtractor={(item) => item._id.toString()}
-      />
+          {past && (
+            <Text style={styles.text}>
+              *Events listed are for May 7th, 2022
+            </Text>
+          )}
+        </View>
+        <FlatList
+          style={styles.flatList}
+          data={events}
+          renderItem={({ item }) => (
+            <EventCard item={item} />
+          )}
+          keyExtractor={(item) => item._id.toString()}
+        />
+      </ImageBackground>
     </SafeAreaView>
   );
 }
@@ -71,6 +75,10 @@ const styles = StyleSheet.create({
   flatList: {
     flex: 1,
     paddingHorizontal: 20,
+  },
+  bgImage: {
+    flex: 1,
+    justifyContent: 'center'
   },
 });
 
