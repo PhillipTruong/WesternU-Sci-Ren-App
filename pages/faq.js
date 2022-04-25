@@ -31,7 +31,7 @@ const Faq = () => {
     <SafeAreaView style={styles.safeAreaViewContainer}>
       <ImageBackground source={bgImage} resizeMode="cover" style={styles.bgImage}>
         <View style={styles.container}>
-          <Text style={styles.title}>FAQ</Text>
+          <Text style={styles.title}>Frequently Asked Questions</Text>
           <FlatList
             style={styles.flatList}
             data={faq}
