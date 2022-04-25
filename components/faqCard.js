@@ -6,7 +6,6 @@ const FaqCard = ({ item: { question, answer } }) => {
     <View style={styles.faqContainer}>
       <Text style={styles.question}>{question}</Text>
       <View style={styles.answerContainer}>
-        {/* <Text>{'\u2022'}</Text> */}
         <Text style={styles.answerText}>{answer}</Text>
       </View>
     </View>
@@ -28,7 +27,6 @@ const styles = StyleSheet.create({
   },
   answerContainer: {
     flexDirection: 'row',
-    marginBottom: 15,
   },
   answer: {
     flex: 1,
