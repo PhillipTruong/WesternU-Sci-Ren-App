@@ -6,14 +6,16 @@ import {
   Text,
   StyleSheet,
   SafeAreaView,
-  ScrollView,
   TouchableOpacity,
   Image,
-  ImageBackground
+  ImageBackground,
+  Dimensions
 } from 'react-native';
 
 import { homePageDrMaddox } from '../images/images';
 import { bgImage } from '../images/images';
+
+const win = Dimensions.get('window')
 
 const Home = ({ navigation }) => {
   return (
@@ -23,15 +25,14 @@ const Home = ({ navigation }) => {
         <ImageBackground source={bgImage} resizeMode="cover" style={styles.bgImage}>
 
 
-          <Text style={styles.title}>Welcome to Science Rendezvous @Western 2022!</Text>
+          {/* <Text style={styles.title}>Welcome to Science Rendezvous @Western 2022!</Text>
           <Text style={styles.p}>
             Science Rendezvous is an all-ages, fun-filled, and free-of-cost event where you and your family can engage in S.T.E.A.M. activities led by Western University's budding scientists.
             Experience the joy of discovery with hands-on activities, and complete the Science Chase for prizes!
-          </Text>
+          </Text> */}
 
           <View style={styles.imageView}>
-            {/* <Text>image</Text> */}
-            {/* <Image source={homePageDrMaddox} resizeMode='cover' style={styles.drMaddoxImg} /> */}
+            <Image source={homePageDrMaddox} style={styles.drMaddoxImg} />
           </View>
 
 
@@ -55,9 +56,6 @@ const Home = ({ navigation }) => {
 
           <View style={styles.section}>
             <Text style={styles.heading}>Social Media:</Text>
-            <Text>
-
-            </Text>
             <View style={styles.socialMediaContainer}>
               <TouchableOpacity style={styles.socialMediaLinks}
                 onPress={() => { Linking.openURL('https://www.facebook.com/westernuSciRen/') }}
@@ -98,7 +96,6 @@ const styles = StyleSheet.create({
   },
   view: {
     flex: 1,
-    // paddingHorizontal: 20,
     backgroundColor: '#EFFFFD',
   },
   title: {
@@ -116,12 +113,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     fontFamily: 'Roboto_700Bold',
-    marginBottom: 10,
+    marginBottom: 5,
   },
   titleContainer: {
   },
   section: {
     marginBottom: 10,
+    paddingHorizontal: 10,
   },
   buttonView: {
     marginTop: 5,
@@ -148,16 +146,15 @@ const styles = StyleSheet.create({
   },
   imageView: {
     flex: 10,
-    // backgroundColor: 'orange'
-    borderWidth: 1,
-    // borderColor: 'red',
-    // alignItems: 'center',
+    padding: 5,
+    paddingTop: 20,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   drMaddoxImg: {
-    // flex: 1,
-    width: 'auto',
-    height: '50%'
+    width: '100%',
+    height: '100%',
+    aspectRatio: 11 / 17
   },
   bgImage: {
     flex: 1,
