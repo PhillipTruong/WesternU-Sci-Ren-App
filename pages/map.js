@@ -1,11 +1,23 @@
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+} from 'react-native';
+
+import { WebView } from 'react-native-webview';
 
 const Map = () => {
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
       <View style={styles.container}>
-        <Text style={styles.title}>Map Screen</Text>
-        <Text style={styles.text}>Coming soon!</Text>
+        <WebView
+          source={{
+            uri: 'https://srwesternu.expofp.com'
+          }}
+        />
+        {/* <Text style={styles.title}>Map Screen</Text>
+        <Text style={styles.text}>Coming soon!</Text> */}
       </View>
     </SafeAreaView>
   );
@@ -18,7 +30,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingHorizontal: 20,
   },
   title: {
     fontSize: 20,

@@ -62,7 +62,7 @@ const App = () => {
           >
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Events" component={Events} />
-            {/* <Tab.Screen name="Map" component={Map} /> */}
+            <Tab.Screen name="Map" component={Map} />
             <Tab.Screen name="Faq" component={Faq} />
           </Tab.Navigator>
         </NavigationContainer>
