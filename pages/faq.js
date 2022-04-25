@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
   },
   flatList: {
     flex: 1,
-    paddingHorizontal: 20,
   },
   bgImage: {
     flex: 1,

@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10,
-    borderWidth: 1,
     borderRadius: 5,
     margin: 5,
   },
@@ -43,7 +42,6 @@ const styles = StyleSheet.create({
   },
   eventText: {
     fontFamily: 'Roboto_400Regular',
-
   },
   titleDescriptionContainer: {
     flex: 4,

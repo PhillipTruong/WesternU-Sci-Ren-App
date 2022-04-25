@@ -6,7 +6,7 @@ const FaqCard = ({ item: { question, answer } }) => {
     <View style={styles.faqContainer}>
       <Text style={styles.question}>{question}</Text>
       <View style={styles.answerContainer}>
-        <Text>{'\u2022'}</Text>
+        {/* <Text>{'\u2022'}</Text> */}
         <Text style={styles.answerText}>{answer}</Text>
       </View>
     </View>
@@ -16,11 +16,15 @@ const FaqCard = ({ item: { question, answer } }) => {
 const styles = StyleSheet.create({
   faqContainer: {
     flex: 1,
+    padding: 10,
+    borderRadius: 5,
+    margin: 5,
+    backgroundColor: '#FFFFFF',
   },
   question: {
     fontSize: 15,
+    fontFamily: 'Roboto_700Bold',
     marginBottom: 10,
-    fontFamily: 'Roboto_400Regular',
   },
   answerContainer: {
     flexDirection: 'row',
@@ -28,11 +32,9 @@ const styles = StyleSheet.create({
   },
   answer: {
     flex: 1,
-    paddingLeft: 5,
   },
   answerText: {
     flex: 1,
-    paddingLeft: 5,
     fontFamily: 'Roboto_400Regular',
   }
 });

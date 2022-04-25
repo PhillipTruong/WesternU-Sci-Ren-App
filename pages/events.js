@@ -35,7 +35,7 @@ const Events = () => {
             Events
           </Text>
           {past && (
-            <Text style={styles.text}>
+            <Text style={styles.subTitle}>
               *Events listed are for May 7th, 2022
             </Text>
           )}
@@ -67,6 +67,10 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     marginBottom: 10,
     fontFamily: 'Roboto_700Bold',
+  },
+  subTitle: {
+    fontFamily: 'Roboto_400Regular',
+    paddingBottom: 15,
   },
   text: {
     fontFamily: 'Roboto_400Regular',
