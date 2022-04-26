@@ -75,11 +75,11 @@ const Home = ({ navigation }) => {
                 <Ionicons name='link-outline' size={32}></Ionicons>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.socialMediaLinks}
+              {/* <TouchableOpacity style={styles.socialMediaLinks}
                 onPress={() => { Linking.openURL('https://srwesternu.expofp.com/') }}
               >
                 <Ionicons name='map-outline' size={32}></Ionicons>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
 
