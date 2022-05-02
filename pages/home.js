@@ -15,7 +15,6 @@ import {
 import { homePageDrMaddox } from '../images/images';
 import { bgImage } from '../images/images';
 
-const win = Dimensions.get('window')
 
 const Home = ({ navigation }) => {
   return (
@@ -32,7 +31,7 @@ const Home = ({ navigation }) => {
           </Text> */}
 
           <View style={styles.imageView}>
-            <Image source={homePageDrMaddox} style={styles.drMaddoxImg} />
+            <Image source={homePageDrMaddox} resizeMode="contain" style={styles.drMaddoxImg} />
           </View>
 
 
