@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    paddingBottom: 10,
   },
   title: {
     fontSize: 20,
@@ -93,6 +92,7 @@ const styles = StyleSheet.create({
   },
   bgImage: {
     flex: 1,
+    paddingBottom: 10,
     paddingHorizontal: 20,
   },
   loadingView: {

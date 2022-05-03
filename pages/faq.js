@@ -6,6 +6,7 @@ import {
   FlatList,
   SafeAreaView,
   ImageBackground,
+  ActivityIndicator,
 } from 'react-native';
 const axios = require('axios').default;
 
@@ -15,8 +16,10 @@ import { bgImage } from '../images/images';
 
 const Faq = () => {
   const [faq, setFaq] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(async () => {
+    setLoading(true)
     await axios.get('https://uwo-sr-app-server.herokuapp.com/api/faq/getAllFaq')
       .then(res => {
         const faqData = res.data
@@ -25,6 +28,7 @@ const Faq = () => {
       .catch(error => {
         console.error(error);
       });
+    setLoading(false)
   }, [])
 
   return (
@@ -32,14 +36,19 @@ const Faq = () => {
       <ImageBackground source={bgImage} resizeMode="cover" style={styles.bgImage}>
         <View style={styles.container}>
           <Text style={styles.title}>Frequently Asked Questions</Text>
-          <FlatList
+          {loading && (
+            <View style={styles.loadingView}>
+              <ActivityIndicator size="large" color="hsv(0°, 0%, 75%)" />
+            </View>
+          )}
+          {!loading && <FlatList
             style={styles.flatList}
             data={faq}
             renderItem={({ item }) => (
               <FaqCard item={item} />
             )}
             keyExtractor={(item) => item._id.toString()}
-          />
+          />}
         </View>
       </ImageBackground>
     </SafeAreaView>
@@ -53,7 +62,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingHorizontal: 20,
   },
   title: {
     fontSize: 20,
@@ -72,6 +80,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingBottom: 10,
+    paddingHorizontal: 20,
+  },
+  loadingView: {
+    flex: 1,
+    justifyContent: 'center'
   },
 });
 
