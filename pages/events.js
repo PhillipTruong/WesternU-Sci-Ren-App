@@ -6,6 +6,7 @@ import {
   FlatList,
   SafeAreaView,
   ImageBackground,
+  ActivityIndicator
 } from 'react-native';
 const axios = require('axios').default;
 
@@ -14,17 +15,21 @@ import { bgImage } from '../images/images';
 
 const Events = () => {
   const [events, setEvents] = useState([])
+  const [loading, setLoading] = useState(false)
   let past = new Date() < new Date('may 7, 2022')
 
   useEffect(async () => {
+    setLoading(true)
     await axios.get('https://uwo-sr-app-server.herokuapp.com/api/data/getAllEvents')
       .then(res => {
         const eventData = res.data
         setEvents(eventData)
+
       })
       .catch(error => {
         console.error(error);
       });
+    setLoading(false)
   }, [])
 
   return (
@@ -39,15 +44,20 @@ const Events = () => {
               *Events listed are for May 7th, 2022
             </Text>
           )}
-        </View>
-        <FlatList
-          style={styles.flatList}
-          data={events}
-          renderItem={({ item }) => (
-            <EventCard item={item} />
+          {loading && (
+            <View style={styles.loadingView}>
+              <ActivityIndicator size="large" color="hsv(0°, 0%, 75%)" />
+            </View>
           )}
-          keyExtractor={(item) => item._id.toString()}
-        />
+          {!loading && <FlatList
+            style={styles.flatList}
+            data={events}
+            renderItem={({ item }) => (
+              <EventCard item={item} />
+            )}
+            keyExtractor={(item) => item._id.toString()}
+          />}
+        </View>
       </ImageBackground>
     </SafeAreaView>
   );
@@ -59,7 +69,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#EFFFFD',
   },
   container: {
-    paddingHorizontal: 20,
+    flex: 1,
+    flexDirection: 'column',
+    paddingBottom: 10,
   },
   title: {
     fontSize: 20,
@@ -78,13 +90,15 @@ const styles = StyleSheet.create({
   },
   flatList: {
     flex: 1,
-    paddingHorizontal: 20,
   },
   bgImage: {
     flex: 1,
-    justifyContent: 'center',
-    paddingBottom: 10,
+    paddingHorizontal: 20,
   },
+  loadingView: {
+    flex: 1,
+    justifyContent: 'center'
+  }
 });
 
 export default Events
