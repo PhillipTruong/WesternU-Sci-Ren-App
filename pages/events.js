@@ -103,7 +103,7 @@ const Events = () => {
             style={styles.flatList}
             data={booths}
             renderItem={({ item }) => (
-              <EventCard item={item} />
+              <EventCard item={item} addStageShowToAgenda={addStageShowToAgenda} />
             )}
             keyExtractor={(item) => item._id.toString()}
           />}
