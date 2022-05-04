@@ -10,7 +10,7 @@ import {
   Roboto_700Bold
 } from '@expo-google-fonts/roboto';
 
-import { registerForPushNotifications } from './utility/pushNotificationService'
+import { registerForPushNotifications, listenForNotifications } from './utility/pushNotificationService'
 import { RootSiblingParent } from 'react-native-root-siblings';
 
 import Home from './pages/home';
@@ -35,6 +35,7 @@ const App = () => {
 
   useEffect(() => {
     registerForPushNotifications()
+    listenForNotifications()
   }, [])
 
   if (!fontsLoaded) {
