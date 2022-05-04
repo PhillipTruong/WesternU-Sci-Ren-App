@@ -19,7 +19,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.westernuscirenapp",
-      "buildNumber": "1.0.6"
+      "buildNumber": "1.0.8"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,7 +28,7 @@
       },
       "package": "app.westernuscirenapp",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 11,
+      "versionCode": 14,
       "permissions": [
         "RECEIVE_BOOT_COMPLETED"
       ]
