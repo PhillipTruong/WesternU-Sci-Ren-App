@@ -16,6 +16,7 @@ import Home from './pages/home';
 import Events from './pages/events';
 import Map from './pages/map';
 import Faq from './pages/faq';
+import Agenda from './pages/agenda';
 
 const Tab = createBottomTabNavigator();
 
@@ -45,7 +46,9 @@ const App = () => {
               if (route.name === 'Home') {
                 iconName = focused ? 'ios-home' : 'ios-home-outline';
               } else if (route.name === 'Events') {
-                iconName = focused ? 'ios-list' : 'ios-list-outline';
+                iconName = focused ? 'ios-calendar' : 'ios-calendar-outline';
+              } else if (route.name === 'Agenda') {
+                iconName = focused ? 'ios-checkbox' : 'ios-checkbox-outline';
               } else if (route.name === 'Map') {
                 iconName = focused ? 'ios-map' : 'ios-map-outline';
               }
@@ -62,6 +65,7 @@ const App = () => {
           >
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Events" component={Events} />
+            <Tab.Screen name="Agenda" component={Agenda} />
             <Tab.Screen name="Map" component={Map} />
             <Tab.Screen name="Faq" component={Faq} />
           </Tab.Navigator>
