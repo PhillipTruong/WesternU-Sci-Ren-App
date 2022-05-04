@@ -73,6 +73,9 @@ const Agenda = ({ agendaChange }) => {
             Agenda
           </Text>
           <Text style={styles.heading}>Stage Shows</Text>
+          {agendaStageShows.length === 0 && (
+            <Text>You have no stage shows planned in your Agenda. Add stage shows to this Agenda from the Schedule tab.</Text>
+          )}
           <FlatList
             style={styles.flatList}
             data={agendaStageShows}
@@ -82,6 +85,9 @@ const Agenda = ({ agendaChange }) => {
             keyExtractor={(item) => item._id.toString()}
           />
           <Text style={styles.heading}>Booths</Text>
+          {agendaBooths.length === 0 && (
+            <Text>You have no booths planned in your Agenda. Add booths to this Agenda from the Schedule tab.</Text>
+          )}
           <FlatList
             style={styles.flatList}
             data={agendaBooths}

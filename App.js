@@ -57,7 +57,7 @@ const App = () => {
                 } else if (route.name === 'Events') {
                   iconName = focused ? 'ios-calendar' : 'ios-calendar-outline';
                 } else if (route.name === 'Agenda') {
-                  iconName = focused ? 'ios-checkbox' : 'ios-checkbox-outline';
+                  iconName = focused ? 'ios-list' : 'ios-list-outline';
                 } else if (route.name === 'Map') {
                   iconName = focused ? 'ios-map' : 'ios-map-outline';
                 }
