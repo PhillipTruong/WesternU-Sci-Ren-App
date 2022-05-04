@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -21,6 +21,12 @@ import Agenda from './pages/agenda';
 const Tab = createBottomTabNavigator();
 
 const App = () => {
+  const [agendaChange, setAgendaChange] = useState(false)
+
+  const handleAgendaChange = () => {
+    setAgendaChange(!agendaChange)
+  }
+
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_700Bold
@@ -64,8 +70,8 @@ const App = () => {
           })}
           >
             <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Events" component={Events} />
-            <Tab.Screen name="Agenda" component={Agenda} />
+            <Tab.Screen name="Events" children={() => <Events handleAgendaChange={handleAgendaChange} />} />
+            <Tab.Screen name="Agenda" children={() => <Agenda agendaChange={agendaChange} />} />
             <Tab.Screen name="Map" component={Map} />
             <Tab.Screen name="Faq" component={Faq} />
           </Tab.Navigator>

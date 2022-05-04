@@ -6,15 +6,13 @@ import {
   FlatList,
   SafeAreaView,
   ImageBackground,
-  ActivityIndicator
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import EventCard from '../components/eventCard';
 import AgendaEventCard from '../components/agendaEventCard';
 import { bgImage } from '../images/images';
 
-const Agenda = () => {
+const Agenda = ({ agendaChange }) => {
   const [agendaStageShows, setStageShows] = useState([])
   const [agendaBooths, setBooths] = useState([])
 
@@ -49,10 +47,23 @@ const Agenda = () => {
     }
   }
 
+  const removeFromAgendaLists = async (id, stageShow) => {
+    try {
+      const stringValue = await AsyncStorage.getItem(stageShow === false ? 'boothAgendaList' : 'stageShowAgendaList')
+      let agendaList = JSON.parse(stringValue)
+      let newAgendaList = agendaList.filter((item) => item._id !== id)
+      let stringUpdatedValue = JSON.stringify(newAgendaList)
+      await AsyncStorage.setItem(stageShow === false ? 'boothAgendaList' : 'stageShowAgendaList', stringUpdatedValue)
+      getAgendaLists()
+    } catch (error) {
+      console.error("Error removing from agenda lists:", error)
+    }
+  }
+
   useEffect(() => {
     setEmptyAgendaLists()
     getAgendaLists()
-  }, [])
+  }, [agendaChange])
 
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
@@ -66,7 +77,7 @@ const Agenda = () => {
             style={styles.flatList}
             data={agendaStageShows}
             renderItem={({ item }) => (
-              <AgendaEventCard item={item} />
+              <AgendaEventCard item={item} removeFromAgendaLists={removeFromAgendaLists} />
             )}
             keyExtractor={(item) => item._id.toString()}
           />
@@ -75,7 +86,7 @@ const Agenda = () => {
             style={styles.flatList}
             data={agendaBooths}
             renderItem={({ item }) => (
-              <AgendaEventCard item={item} />
+              <AgendaEventCard item={item} removeFromAgendaLists={removeFromAgendaLists} />
             )}
             keyExtractor={(item) => item._id.toString()}
           />

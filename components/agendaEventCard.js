@@ -2,13 +2,11 @@ import {
   StyleSheet,
   View,
   Text,
-  Button,
   TouchableHighlight
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-
-const AgendaEventCard = ({ item }) => {
+const AgendaEventCard = ({ item, removeFromAgendaLists }) => {
   let { _id: id, title, description, time, isStageShow } = item
   let today = new Date()
   let past = today > new Date(time)
@@ -28,17 +26,11 @@ const AgendaEventCard = ({ item }) => {
           <Text style={styles.eventName}>{title}</Text>
           <Text style={styles.eventText}>{description}</Text>
         </View >
-        {/* {isStageShow && (
-          <View style={[styles.timeContainer]}>
-            <Text style={styles.eventText}>{eventTime}</Text>
-          </View>
-        )} */}
-
-        {/* <TouchableHighlight style={styles.plusButtonView} onPress={() => addStageShowToAgenda(item, true)}>
+        <TouchableHighlight style={styles.plusButtonView} onPress={() => removeFromAgendaLists(id, isStageShow)}>
           <View style={styles.plusButtonView}>
-            <Ionicons name={"add-circle-outline"} size={30} color={'#00BDC5'} />
+            <Ionicons name={"trash"} size={30} color={'#db394a'} />
           </View>
-        </TouchableHighlight> */}
+        </TouchableHighlight>
       </View>
     </View>
   );

@@ -14,11 +14,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import EventCard from '../components/eventCard';
 import { bgImage } from '../images/images';
 
-const Events = () => {
+const Events = ({ handleAgendaChange }) => {
   const [stageShows, setStageShows] = useState([])
   const [booths, setBooths] = useState([])
   const [loading, setLoading] = useState(false)
-  let past = new Date() < new Date('may 7, 2022')
 
   let containsObject = (obj, list) => {
     return list.some(elem => elem._id === obj._id)
@@ -52,6 +51,7 @@ const Events = () => {
         agendaList.push(item)
         let stringUpdatedValue = JSON.stringify(agendaList)
         await AsyncStorage.setItem(stageShow ? 'stageShowAgendaList' : 'boothAgendaList', stringUpdatedValue)
+        handleAgendaChange()
       }
     } catch (error) {
       console.error("Error setting agenda lists:", error)
@@ -71,7 +71,6 @@ const Events = () => {
         let boothEvents = eventData.filter(item => !item.isStageShow);
         setStageShows(stageShowEvents)
         setBooths(boothEvents)
-
       })
       .catch(error => {
         console.error(error);
