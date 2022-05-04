@@ -6,23 +6,15 @@ import {
   FlatList,
   SafeAreaView,
   ImageBackground,
-  ActivityIndicator
 } from 'react-native';
-const axios = require('axios').default;
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Toast from 'react-native-root-toast';
 
-import EventCard from '../components/eventCard';
+import AgendaEventCard from '../components/agendaEventCard';
 import { bgImage } from '../images/images';
 
-const Events = ({ handleAgendaChange }) => {
-  const [stageShows, setStageShows] = useState([])
-  const [booths, setBooths] = useState([])
-  const [loading, setLoading] = useState(false)
-
-  let containsObject = (obj, list) => {
-    return list.some(elem => elem._id === obj._id)
-  }
+const Agenda = ({ agendaChange }) => {
+  const [agendaStageShows, setStageShows] = useState([])
+  const [agendaBooths, setBooths] = useState([])
 
   const setEmptyAgendaLists = async () => {
     try {
@@ -41,79 +33,69 @@ const Events = ({ handleAgendaChange }) => {
     }
   }
 
-  const addStageShowToAgenda = async (item, stageShow) => {
+  const getAgendaLists = async () => {
     try {
-      const stringValue = await AsyncStorage.getItem(stageShow ? 'stageShowAgendaList' : 'boothAgendaList')
+      const stringStageShowAgendaList = await AsyncStorage.getItem('stageShowAgendaList')
+      const stringBoothAgendaList = await AsyncStorage.getItem('boothAgendaList')
+      let stageShowAgendaList = JSON.parse(stringStageShowAgendaList)
+      let boothAgendaList = JSON.parse(stringBoothAgendaList)
+      setStageShows(stageShowAgendaList)
+      setBooths(boothAgendaList)
+
+    } catch (e) {
+      console.error("error setting the agenda items:", e)
+    }
+  }
+
+  const removeFromAgendaLists = async (id, stageShow) => {
+    try {
+      const stringValue = await AsyncStorage.getItem(stageShow === false ? 'boothAgendaList' : 'stageShowAgendaList')
       let agendaList = JSON.parse(stringValue)
-      if (containsObject(item, agendaList)) {
-        Toast.show('Event already in Agenda');
-        return
-      }
-      else {
-        agendaList.push(item)
-        let stringUpdatedValue = JSON.stringify(agendaList)
-        Toast.show('Event added to Agenda');
-        await AsyncStorage.setItem(stageShow ? 'stageShowAgendaList' : 'boothAgendaList', stringUpdatedValue)
-        handleAgendaChange()
-      }
+      let newAgendaList = agendaList.filter((item) => item._id !== id)
+      let stringUpdatedValue = JSON.stringify(newAgendaList)
+      await AsyncStorage.setItem(stageShow === false ? 'boothAgendaList' : 'stageShowAgendaList', stringUpdatedValue)
+      getAgendaLists()
     } catch (error) {
-      console.error("Error setting agenda lists:", error)
+      console.error("Error removing from agenda lists:", error)
     }
   }
 
   useEffect(() => {
     setEmptyAgendaLists()
-  }, [])
-
-  useEffect(async () => {
-    setLoading(true)
-    await axios.get('https://uwo-sr-app-server.herokuapp.com/api/data/getAllEvents')
-      .then(res => {
-        const eventData = res.data
-        let stageShowEvents = eventData.filter(item => item.isStageShow);
-        let boothEvents = eventData.filter(item => !item.isStageShow);
-        setStageShows(stageShowEvents)
-        setBooths(boothEvents)
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    setLoading(false)
-  }, [])
+    getAgendaLists()
+  }, [agendaChange])
 
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
       <ImageBackground source={bgImage} resizeMode="cover" style={styles.bgImage}>
         <View style={styles.container}>
           <Text style={styles.title}>
-            Schedule
-          </Text>
-          <Text style={styles.subTitle}>
-            Press the plus icon to add it to your agenda!
+            Agenda
           </Text>
           <Text style={styles.heading}>Stage Shows</Text>
-          {!loading && <FlatList
-            style={styles.flatList}
-            data={stageShows}
-            renderItem={({ item }) => (
-              <EventCard item={item} addStageShowToAgenda={addStageShowToAgenda} />
-            )}
-            keyExtractor={(item) => item._id.toString()}
-          />}
-          <Text style={styles.heading}>Booths</Text>
-          {!loading && <FlatList
-            style={styles.flatList}
-            data={booths}
-            renderItem={({ item }) => (
-              <EventCard item={item} addStageShowToAgenda={addStageShowToAgenda} />
-            )}
-            keyExtractor={(item) => item._id.toString()}
-          />}
-          {loading && (
-            <View style={styles.loadingView}>
-              <ActivityIndicator size="large" color="hsv(0°, 0%, 75%)" />
-            </View>
+          {agendaStageShows.length === 0 && (
+            <Text>You have no stage shows planned in your Agenda. Add stage shows to this Agenda from the Schedule tab.</Text>
           )}
+          <FlatList
+            style={styles.flatList}
+            data={agendaStageShows}
+            renderItem={({ item }) => (
+              <AgendaEventCard item={item} removeFromAgendaLists={removeFromAgendaLists} />
+            )}
+            keyExtractor={(item) => item._id.toString()}
+          />
+          <Text style={styles.heading}>Booths</Text>
+          {agendaBooths.length === 0 && (
+            <Text>You have no booths planned in your Agenda. Add booths to this Agenda from the Schedule tab.</Text>
+          )}
+          <FlatList
+            style={styles.flatList}
+            data={agendaBooths}
+            renderItem={({ item }) => (
+              <AgendaEventCard item={item} removeFromAgendaLists={removeFromAgendaLists} />
+            )}
+            keyExtractor={(item) => item._id.toString()}
+          />
         </View>
       </ImageBackground>
     </SafeAreaView>
@@ -164,4 +146,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Events
+export default Agenda
