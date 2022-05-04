@@ -14,52 +14,25 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import EventCard from '../components/eventCard';
 import { bgImage } from '../images/images';
 
-const Events = () => {
-  const [stageShows, setStageShows] = useState([])
-  const [booths, setBooths] = useState([])
+const Agenda = () => {
+  const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(false)
   let past = new Date() < new Date('may 7, 2022')
 
-  let containsObject = (obj, list) => {
-    return list.some(elem => elem._id === obj._id)
-  }
-
-  const setEmptyAgendaLists = async () => {
+  const getData = async () => {
     try {
-      const stageShowAgendaList = await AsyncStorage.getItem('stageShowAgendaList')
-      const boothAgendaList = await AsyncStorage.getItem('boothAgendaList')
-      if (stageShowAgendaList === null) {
-        let emptyStageShowAgendaList = []
-        await AsyncStorage.setItem('stageShowAgendaList', JSON.stringify(emptyStageShowAgendaList))
-      }
-      if (boothAgendaList === null) {
-        let emptyBoothAgendaList = []
-        await AsyncStorage.setItem('boothAgendaList', JSON.stringify(emptyBoothAgendaList))
+      const value = await AsyncStorage.getItem('testingKey')
+      if (value !== null) {
+        console.log(value)
+        // value previously stored
       }
     } catch (e) {
-      console.error("Error setting agenda lists.")
-    }
-  }
-
-  const addStageShowToAgenda = async (item, stageShow) => {
-    try {
-      const stringValue = await AsyncStorage.getItem(stageShow ? 'stageShowAgendaList' : 'boothAgendaList')
-      let agendaList = JSON.parse(stringValue)
-      if (containsObject(item, agendaList)) {
-        return
-      }
-      else {
-        agendaList.push(item)
-        let stringUpdatedValue = JSON.stringify(agendaList)
-        await AsyncStorage.setItem(stageShow ? 'stageShowAgendaList' : 'boothAgendaList', stringUpdatedValue)
-      }
-    } catch (error) {
-      console.error("Error setting agenda lists:", error)
+      // error reading value
     }
   }
 
   useEffect(() => {
-    setEmptyAgendaLists()
+    getData()
   }, [])
 
   useEffect(async () => {
@@ -67,10 +40,7 @@ const Events = () => {
     await axios.get('https://uwo-sr-app-server.herokuapp.com/api/data/getAllEvents')
       .then(res => {
         const eventData = res.data
-        let stageShowEvents = eventData.filter(item => item.isStageShow);
-        let boothEvents = eventData.filter(item => !item.isStageShow);
-        setStageShows(stageShowEvents)
-        setBooths(boothEvents)
+        setEvents(eventData)
 
       })
       .catch(error => {
@@ -84,29 +54,26 @@ const Events = () => {
       <ImageBackground source={bgImage} resizeMode="cover" style={styles.bgImage}>
         <View style={styles.container}>
           <Text style={styles.title}>
-            Schedule
-          </Text>
-          <Text style={styles.subTitle}>
-            Press the plus icon to add it to your agenda!
+            Agenda
           </Text>
           <Text style={styles.heading}>Stage Shows</Text>
-          {!loading && <FlatList
+          <FlatList
             style={styles.flatList}
-            data={stageShows}
-            renderItem={({ item }) => (
-              <EventCard item={item} addStageShowToAgenda={addStageShowToAgenda} />
-            )}
-            keyExtractor={(item) => item._id.toString()}
-          />}
-          <Text style={styles.heading}>Booths</Text>
-          {!loading && <FlatList
-            style={styles.flatList}
-            data={booths}
+            data={events}
             renderItem={({ item }) => (
               <EventCard item={item} />
             )}
             keyExtractor={(item) => item._id.toString()}
-          />}
+          />
+          <Text style={styles.heading}>Booths</Text>
+          <FlatList
+            style={styles.flatList}
+            data={events}
+            renderItem={({ item }) => (
+              <EventCard item={item} />
+            )}
+            keyExtractor={(item) => item._id.toString()}
+          />
           {loading && (
             <View style={styles.loadingView}>
               <ActivityIndicator size="large" color="hsv(0°, 0%, 75%)" />
@@ -162,4 +129,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Events
+export default Agenda

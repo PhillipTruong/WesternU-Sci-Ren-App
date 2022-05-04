@@ -1,9 +1,19 @@
-import { StyleSheet, View, Text } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Button,
+  TouchableHighlight
+} from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-const EventCard = ({ item: { _id: id, title, description, time } }) => {
+
+const EventCard = ({ item, addStageShowToAgenda }) => {
+  let { _id: id, title, description, time, isStageShow } = item
   let today = new Date()
   let past = today > new Date(time)
   let eventTime = ''
+
   if (time) {
     eventTime = (new Date(time)).toLocaleString('en-US', { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit' })
   }
@@ -14,9 +24,17 @@ const EventCard = ({ item: { _id: id, title, description, time } }) => {
         <Text style={styles.eventName}>{title}</Text>
         <Text style={styles.eventText}>{description}</Text>
       </View >
-      <View style={styles.timeContainer}>
-        <Text style={styles.eventText}>{eventTime}</Text>
-      </View>
+      {isStageShow && (
+        <View style={[styles.timeContainer]}>
+          <Text style={styles.eventText}>{eventTime}</Text>
+        </View>
+      )}
+
+      <TouchableHighlight style={styles.plusButtonView} onPress={() => addStageShowToAgenda(item, true)}>
+        <View style={styles.plusButtonView}>
+          <Ionicons name={"add-circle-outline"} size={30} color={'#00BDC5'} />
+        </View>
+      </TouchableHighlight>
     </View>
   );
 }
@@ -31,7 +49,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   eventPast: {
-    backgroundColor: '#EEEEEE',
+    backgroundColor: '#D3D3D3',
   },
   eventNotPast: {
     backgroundColor: '#FFFFFF',
@@ -44,13 +62,17 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto_400Regular',
   },
   titleDescriptionContainer: {
-    flex: 4,
+    flex: 5,
   },
   timeContainer: {
-    flex: 1,
+    flex: 2,
     justifyContent: 'center',
     alignItems: 'center'
-  }
+  },
+  plusButtonView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default EventCard
