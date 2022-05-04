@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 const axios = require('axios').default;
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-root-toast';
 
 import EventCard from '../components/eventCard';
 import { bgImage } from '../images/images';
@@ -45,11 +46,13 @@ const Events = ({ handleAgendaChange }) => {
       const stringValue = await AsyncStorage.getItem(stageShow ? 'stageShowAgendaList' : 'boothAgendaList')
       let agendaList = JSON.parse(stringValue)
       if (containsObject(item, agendaList)) {
+        Toast.show('Event already in Agenda');
         return
       }
       else {
         agendaList.push(item)
         let stringUpdatedValue = JSON.stringify(agendaList)
+        Toast.show('Event added to Agenda');
         await AsyncStorage.setItem(stageShow ? 'stageShowAgendaList' : 'boothAgendaList', stringUpdatedValue)
         handleAgendaChange()
       }
