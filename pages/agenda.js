@@ -8,45 +8,50 @@ import {
   ImageBackground,
   ActivityIndicator
 } from 'react-native';
-const axios = require('axios').default;
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import EventCard from '../components/eventCard';
+import AgendaEventCard from '../components/agendaEventCard';
 import { bgImage } from '../images/images';
 
 const Agenda = () => {
-  const [events, setEvents] = useState([])
-  const [loading, setLoading] = useState(false)
-  let past = new Date() < new Date('may 7, 2022')
+  const [agendaStageShows, setStageShows] = useState([])
+  const [agendaBooths, setBooths] = useState([])
 
-  const getData = async () => {
+  const setEmptyAgendaLists = async () => {
     try {
-      const value = await AsyncStorage.getItem('testingKey')
-      if (value !== null) {
-        console.log(value)
-        // value previously stored
+      const stageShowAgendaList = await AsyncStorage.getItem('stageShowAgendaList')
+      const boothAgendaList = await AsyncStorage.getItem('boothAgendaList')
+      if (stageShowAgendaList === null) {
+        let emptyStageShowAgendaList = []
+        await AsyncStorage.setItem('stageShowAgendaList', JSON.stringify(emptyStageShowAgendaList))
+      }
+      if (boothAgendaList === null) {
+        let emptyBoothAgendaList = []
+        await AsyncStorage.setItem('boothAgendaList', JSON.stringify(emptyBoothAgendaList))
       }
     } catch (e) {
-      // error reading value
+      console.error("Error setting agenda lists.")
+    }
+  }
+
+  const getAgendaLists = async () => {
+    try {
+      const stringStageShowAgendaList = await AsyncStorage.getItem('stageShowAgendaList')
+      const stringBoothAgendaList = await AsyncStorage.getItem('boothAgendaList')
+      let stageShowAgendaList = JSON.parse(stringStageShowAgendaList)
+      let boothAgendaList = JSON.parse(stringBoothAgendaList)
+      setStageShows(stageShowAgendaList)
+      setBooths(boothAgendaList)
+
+    } catch (e) {
+      console.error("error setting the agenda items:", e)
     }
   }
 
   useEffect(() => {
-    getData()
-  }, [])
-
-  useEffect(async () => {
-    setLoading(true)
-    await axios.get('https://uwo-sr-app-server.herokuapp.com/api/data/getAllEvents')
-      .then(res => {
-        const eventData = res.data
-        setEvents(eventData)
-
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    setLoading(false)
+    setEmptyAgendaLists()
+    getAgendaLists()
   }, [])
 
   return (
@@ -59,26 +64,21 @@ const Agenda = () => {
           <Text style={styles.heading}>Stage Shows</Text>
           <FlatList
             style={styles.flatList}
-            data={events}
+            data={agendaStageShows}
             renderItem={({ item }) => (
-              <EventCard item={item} />
+              <AgendaEventCard item={item} />
             )}
             keyExtractor={(item) => item._id.toString()}
           />
           <Text style={styles.heading}>Booths</Text>
           <FlatList
             style={styles.flatList}
-            data={events}
+            data={agendaBooths}
             renderItem={({ item }) => (
-              <EventCard item={item} />
+              <AgendaEventCard item={item} />
             )}
             keyExtractor={(item) => item._id.toString()}
           />
-          {loading && (
-            <View style={styles.loadingView}>
-              <ActivityIndicator size="large" color="hsv(0°, 0%, 75%)" />
-            </View>
-          )}
         </View>
       </ImageBackground>
     </SafeAreaView>
