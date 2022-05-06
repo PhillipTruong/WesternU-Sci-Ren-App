@@ -28,7 +28,7 @@
       },
       "package": "app.westernuscirenapp",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 14,
+      "versionCode": 15,
       "permissions": [
         "RECEIVE_BOOT_COMPLETED"
       ]
