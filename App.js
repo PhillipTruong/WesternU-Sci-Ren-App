@@ -45,10 +45,10 @@ const App = () => {
     }
   }, [fontsLoaded])
 
-  useEffect(() => {
-    registerForPushNotifications()
-    listenForNotifications()
-  }, [])
+  // useEffect(() => {
+  //   registerForPushNotifications()
+  //   listenForNotifications()
+  // }, [])
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
