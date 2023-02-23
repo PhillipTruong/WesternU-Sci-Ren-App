@@ -1,14 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import AppLoading from 'expo-app-loading';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import {
   useFonts,
   Roboto_400Regular,
   Roboto_700Bold
 } from '@expo-google-fonts/roboto';
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync();
 
 import { registerForPushNotifications, listenForNotifications } from './utility/pushNotificationService'
 import { RootSiblingParent } from 'react-native-root-siblings';
@@ -21,11 +23,15 @@ import Agenda from './pages/agenda';
 
 const Tab = createBottomTabNavigator();
 
+SplashScreen.preventAutoHideAsync();
+
 const App = () => {
-  const [agendaChange, setAgendaChange] = useState(false)
+  const [agendaChange, setAgendaChange] = useState(false);
+  const [appIsReady, setAppIsReady] = useState(false);
+
 
   const handleAgendaChange = () => {
-    setAgendaChange(!agendaChange)
+    setAgendaChange(!agendaChange);
   }
 
   let [fontsLoaded] = useFonts({
@@ -34,55 +40,72 @@ const App = () => {
   })
 
   useEffect(() => {
+    if (fontsLoaded) {
+      setAppIsReady(true);
+    }
+  }, [fontsLoaded])
+
+  useEffect(() => {
     registerForPushNotifications()
     listenForNotifications()
   }, [])
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  } else {
-    return (
-      <RootSiblingParent>
-        <SafeAreaView style={styles.container}>
-          <StatusBar
-            barStyle={'dark-content'}
-          />
-          <NavigationContainer>
-            <Tab.Navigator screenOptions={({ route }) => ({
-              tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      // This tells the splash screen to hide immediately! If we call this after
+      // `setAppIsReady`, then we may see a blank screen while the app is
+      // loading its initial state and rendering its first pixels. So instead,
+      // we hide the splash screen once we know the root view has already
+      // performed layout.
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
 
-                if (route.name === 'Home') {
-                  iconName = focused ? 'ios-home' : 'ios-home-outline';
-                } else if (route.name === 'Events') {
-                  iconName = focused ? 'ios-calendar' : 'ios-calendar-outline';
-                } else if (route.name === 'Agenda') {
-                  iconName = focused ? 'ios-list' : 'ios-list-outline';
-                } else if (route.name === 'Map') {
-                  iconName = focused ? 'ios-map' : 'ios-map-outline';
-                }
-                else if (route.name === 'Faq') {
-                  iconName = focused ? 'help' : 'help-outline';
-                }
-                return <Ionicons name={iconName} size={size} color={color} />;
-              },
-              headerShown: false,
-              tabBarActiveTintColor: '#0BB4A9',
-              tabBarInactiveTintColor: 'gray',
-              tabBarShowLabel: false,
-            })}
-            >
-              <Tab.Screen name="Home" component={Home} />
-              <Tab.Screen name="Events" children={() => <Events handleAgendaChange={handleAgendaChange} />} />
-              <Tab.Screen name="Agenda" children={() => <Agenda agendaChange={agendaChange} />} />
-              <Tab.Screen name="Map" component={Map} />
-              <Tab.Screen name="Faq" component={Faq} />
-            </Tab.Navigator>
-          </NavigationContainer>
-        </SafeAreaView>
-      </RootSiblingParent>
-    )
+  if (!appIsReady) {
+    return null;
   }
+
+  return (
+    <RootSiblingParent>
+      <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
+        <StatusBar
+          barStyle={'dark-content'}
+        />
+        <NavigationContainer>
+          <Tab.Navigator screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+
+              if (route.name === 'Home') {
+                iconName = focused ? 'ios-home' : 'ios-home-outline';
+              } else if (route.name === 'Events') {
+                iconName = focused ? 'ios-calendar' : 'ios-calendar-outline';
+              } else if (route.name === 'Agenda') {
+                iconName = focused ? 'ios-list' : 'ios-list-outline';
+              } else if (route.name === 'Map') {
+                iconName = focused ? 'ios-map' : 'ios-map-outline';
+              }
+              else if (route.name === 'Faq') {
+                iconName = focused ? 'help' : 'help-outline';
+              }
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+            headerShown: false,
+            tabBarActiveTintColor: '#0BB4A9',
+            tabBarInactiveTintColor: 'gray',
+            tabBarShowLabel: false,
+          })}
+          >
+            <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="Events" children={() => <Events handleAgendaChange={handleAgendaChange} />} />
+            <Tab.Screen name="Agenda" children={() => <Agenda agendaChange={agendaChange} />} />
+            <Tab.Screen name="Map" component={Map} />
+            <Tab.Screen name="Faq" component={Faq} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </SafeAreaView>
+    </RootSiblingParent>
+  )
 }
 
 const styles = StyleSheet.create({
