@@ -18,18 +18,18 @@ const Faq = () => {
   const [faq, setFaq] = useState([])
   const [loading, setLoading] = useState(false)
 
-  useEffect(async () => {
-    setLoading(true)
-    await axios.get('https://uwo-sr-app-server.herokuapp.com/api/faq/getAllFaq')
-      .then(res => {
-        const faqData = res.data
-        setFaq(faqData)
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    setLoading(false)
-  }, [])
+  // useEffect(async () => {
+  //   setLoading(true)
+  //   await axios.get('https://uwo-sr-app-server.herokuapp.com/api/faq/getAllFaq')
+  //     .then(res => {
+  //       const faqData = res.data
+  //       setFaq(faqData)
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  //   setLoading(false)
+  // }, [])
 
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>

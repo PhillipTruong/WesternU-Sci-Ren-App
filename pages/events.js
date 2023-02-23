@@ -65,21 +65,21 @@ const Events = ({ handleAgendaChange }) => {
     setEmptyAgendaLists()
   }, [])
 
-  useEffect(async () => {
-    setLoading(true)
-    await axios.get('https://uwo-sr-app-server.herokuapp.com/api/data/getAllEvents')
-      .then(res => {
-        const eventData = res.data
-        let stageShowEvents = eventData.filter(item => item.isStageShow);
-        let boothEvents = eventData.filter(item => !item.isStageShow);
-        setStageShows(stageShowEvents)
-        setBooths(boothEvents)
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    setLoading(false)
-  }, [])
+  // useEffect(async () => {
+  //   setLoading(true)
+  //   await axios.get('https://uwo-sr-app-server.herokuapp.com/api/data/getAllEvents')
+  //     .then(res => {
+  //       const eventData = res.data
+  //       let stageShowEvents = eventData.filter(item => item.isStageShow);
+  //       let boothEvents = eventData.filter(item => !item.isStageShow);
+  //       setStageShows(stageShowEvents)
+  //       setBooths(boothEvents)
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  //   setLoading(false)
+  // }, [])
 
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
