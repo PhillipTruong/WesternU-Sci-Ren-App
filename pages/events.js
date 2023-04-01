@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  FlatList,
-  SafeAreaView,
-  ImageBackground,
-  ActivityIndicator
-} from 'react-native';
-const axios = require('axios').default;
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  ImageBackground,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 import Toast from 'react-native-root-toast';
+const axios = require('axios').default;
 
 import EventCard from '../components/eventCard';
 import { bgImage } from '../images/images';
@@ -61,25 +61,33 @@ const Events = ({ handleAgendaChange }) => {
     }
   }
 
+
   useEffect(() => {
     setEmptyAgendaLists()
   }, [])
 
-  // useEffect(async () => {
-  //   setLoading(true)
-  //   await axios.get('https://uwo-sr-app-server.herokuapp.com/api/data/getAllEvents')
-  //     .then(res => {
-  //       const eventData = res.data
-  //       let stageShowEvents = eventData.filter(item => item.isStageShow);
-  //       let boothEvents = eventData.filter(item => !item.isStageShow);
-  //       setStageShows(stageShowEvents)
-  //       setBooths(boothEvents)
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  //   setLoading(false)
-  // }, [])
+  useEffect(() => {
+    const fetchEvents = async () => {
+      setLoading(true)
+
+      // get Events
+      await axios.get('https://uwo-sr-app-server.herokuapp.com/api/data/getAllEvents')
+        .then(res => {
+          const eventData = res.data;
+          let stageShowEvents = eventData.filter(item => item.isStageShow);
+          let boothEvents = eventData.filter(item => !item.isStageShow);
+          setStageShows(stageShowEvents)
+          setBooths(boothEvents)
+        })
+        .catch(error => {
+          console.error(error);
+        });
+
+      setLoading(false)
+    }
+
+    fetchEvents();
+  }, [])
 
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>

@@ -2,16 +2,17 @@
   "expo": {
     "name": "WesternUSciRenApp",
     "slug": "WesternUSciRenApp",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#00BDC5"
+      "backgroundColor": "#BBDEBF"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/85799fd0-0a62-4093-ae54-1ab282c3cf75"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,12 +20,12 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.westernuscirenapp",
-      "buildNumber": "1.0.8"
+      "buildNumber": "1.1.1"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#00BDC5"
+        "backgroundColor": "#BBDEBF"
       },
       "package": "app.westernuscirenapp",
       "googleServicesFile": "./google-services.json",
@@ -44,6 +45,14 @@
           "color": "#ffffff"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "85799fd0-0a62-4093-ae54-1ab282c3cf75"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    }
   }
 }

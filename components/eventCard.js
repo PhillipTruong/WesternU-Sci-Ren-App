@@ -32,7 +32,7 @@ const EventCard = ({ item, addStageShowToAgenda }) => {
 
       <TouchableHighlight style={styles.plusButtonView} onPress={() => addStageShowToAgenda(item, isStageShow)}>
         <View style={styles.plusButtonView}>
-          <Ionicons name={"add-circle-outline"} size={30} color={'#00BDC5'} />
+          <Ionicons name={"add-circle-outline"} size={30} color={'#BBDEBF'} />
         </View>
       </TouchableHighlight>
     </View>

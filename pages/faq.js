@@ -1,35 +1,41 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
-  StyleSheet,
-  View,
-  Text,
-  FlatList,
-  SafeAreaView,
-  ImageBackground,
   ActivityIndicator,
+  FlatList,
+  ImageBackground,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 const axios = require('axios').default;
 
 import FaqCard from '../components/faqCard';
 import { bgImage } from '../images/images';
 
-
 const Faq = () => {
   const [faq, setFaq] = useState([])
   const [loading, setLoading] = useState(false)
 
-  // useEffect(async () => {
-  //   setLoading(true)
-  //   await axios.get('https://uwo-sr-app-server.herokuapp.com/api/faq/getAllFaq')
-  //     .then(res => {
-  //       const faqData = res.data
-  //       setFaq(faqData)
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  //   setLoading(false)
-  // }, [])
+  useEffect(() => {
+    const fetchFaq = async () => {
+      setLoading(true)
+
+      // get faq
+      await axios.get('https://uwo-sr-app-server.herokuapp.com/api/faq/getAllFaq')
+        .then(res => {
+          setFaq(res.data);
+        })
+        .catch(error => {
+          console.error(error);
+          setFaq([]);
+        });
+
+      setLoading(false)
+    }
+
+    fetchFaq();
+  }, [])
 
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
